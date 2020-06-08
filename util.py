@@ -11,7 +11,6 @@ def time_to_open(alpaca):
   curr_time = clock.timestamp.replace(tzinfo=datetime.timezone.utc).timestamp()
   return (opening_time - curr_time) / 60
 
-
 # Wait for market to open, or offset minutes before that.
 def await_market_open(alpaca, offset=0):
   is_open = alpaca.get_clock().is_open
