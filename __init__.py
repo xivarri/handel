@@ -1,3 +1,3 @@
-__all__ = ["game", "data"]
-import os
+__all__ = ["run", "util"]
+import util
 from .game import play

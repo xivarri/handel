@@ -1,0 +1,23 @@
+import time
+import pandas
+
+CSV_FILE_LOCATION = "fix me"
+
+def time_to_open(alpaca):
+  clock = alpaca.get_clock()
+  opening_time = clock.next_open.replace(tzinfo=datetime.timezone.utc).timestamp()
+  curr_time = clock.timestamp.replace(tzinfo=datetime.timezone.utc).timestamp()
+  return (opening_time - curr_time) / 60
+
+
+# Wait for market to open, or offset minutes before that.
+def await_market_open(alpaca, offset=0):
+  is_open = alpaca.get_clock().is_open
+  while not is_open:
+    tto = time_to_open(alpaca)
+    print(str(tto) + "{} minutes til market open.".format(tto))
+    time.sleep(60)
+    is_open = alpaca.get_clock().is_open
+
+def load_csv():
+  return pandas.readcsv(CSV_FILE_LOCATION)
